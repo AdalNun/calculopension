@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Child Support Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        input {
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 1em;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 1em;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Child Support Calculator</h1>
+        <form id="calculator-form">
+            <label for="gross-income">Gross Income (Annual):</label>
+            <input type="number" id="gross-income" name="gross-income" required>
+
+            <label for="num-dependents">Number of Dependents:</label>
+            <input type="number" id="num-dependents" name="num-dependents" required>
+
+            <label for="custody-percentage">Custody Percentage (PC):</label>
+            <input type="number" id="custody-percentage" name="custody-percentage" required>
+
+            <button type="submit">Calculate</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    <script>
+        document.getElementById('calculator-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Get input values
+            const grossIncome = parseFloat(document.getElementById('gross-income').value);
+            const numDependents = parseInt(document.getElementById('num-dependents').value);
+            const custodyPercentage = parseFloat(document.getElementById('custody-percentage').value);
+
+            // Placeholder for actual calculation logic
+            // Implement the calculation based on the Excel formulas
+            let childSupport = 0;
+
+            // Example calculation (replace with actual logic)
+            if (numDependents === 1) {
+                if (grossIncome <= 1666) {
+                    childSupport = grossIncome * 0.575;
+                } else if (grossIncome <= 2499) {
+                    childSupport = grossIncome * 0.37;
+                } else {
+                    childSupport = grossIncome * 0.35;
+                }
+            } else if (numDependents === 2) {
+                if (grossIncome <= 1666) {
+                    childSupport = grossIncome * 0.488;
+                } else if (grossIncome <= 2499) {
+                    childSupport = grossIncome * 0.343;
+                } else {
+                    childSupport = grossIncome * 0.325;
+                }
+            }
+
+            // Adjust based on custody percentage
+            childSupport = childSupport * (custodyPercentage / 100);
+
+            // Display result
+            document.getElementById('result').innerText = `Estimated Child Support: $${childSupport.toFixed(2)} per year`;
+        });
+    </script>
+</body>
+</html>
